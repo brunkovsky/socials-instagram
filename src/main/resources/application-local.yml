@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: "jdbc:mariadb://192.168.1.44:3306/data"
+    username: "stas"
+    password: "141292"

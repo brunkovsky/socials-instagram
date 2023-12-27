@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: socials-instagram
+  config:
+    import: "optional:configserver:http://localhost:8888"
+  profiles:
+    active: local
+  data:
+    rest:
+      basePath: "/api/socials/instagram"
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/jsp/
+#      suffix: .jsp
+
+server:
+  port: 8083
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    env:
+      post:
+        enabled: true
+
+logging:
+  level:
+    org:
+      example:
+        socials:
+          instagram:
+            rabbit: DEBUG
+
+info:
+  app:
+    name: "Socials Instagram module"
+    description: "The module intended to get Instagram posts and send them to social storage"
+
+socials:
+  rabbit:
+    exchange:
+      storage:
+        name: socials-storage

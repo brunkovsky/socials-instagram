@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: "jdbc:mariadb://ranok.duckdns.org:3306/data"
+    username: "stas"
+    password: "141292"

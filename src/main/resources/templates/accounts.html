@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Instagram accounts Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/shards.min.css">
+</head>
+<body>
+    <div th:switch="${instagramAccounts}" class="container my-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 th:case="null">No instagram accounts found</h2>
+                <div th:case="*">
+                    <h2 class="my-5">INSTAGRAM ACCOUNTS</h2>
+                    <table class="table table-striped table-responsive-md">
+                        <thead>
+                        <tr>
+                            <th>accountName</th>
+                            <th>accessToken</th>
+                            <th>valid</th>
+                            <th>executorScheduler</th>
+                            <th>accessTokenScheduler</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="instagramAccount : ${instagramAccounts}">
+                            <td th:text="${instagramAccount.accountName}"></td>
+                            <td th:text="${#strings.substring(instagramAccount.accessToken,0,20)} + '...'"></td>
+                            <td th:text="${instagramAccount.valid}"></td>
+                            <td th:text="${instagramAccount.executorScheduler}"></td>
+                            <td th:text="${instagramAccount.accessTokenScheduler}"></td>
+                            <td><a th:href="@{/api/socials/instagram/delete/{id}(id=${instagramAccount.accountName})}"
+                                   class="btn btn-danger"><i class="fas fa fa-times"></i></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container my-5">
+        <h2 class="mb-5">New account</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <form action="#" th:action="@{addAccount}" method="post">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="accountName">Account name</label>
+                            <input type="text" th:name="accountName" class="form-control" id="accountName"/>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="accessToken">AccessToken</label>
+                            <input type="text" th:name="accessToken" class="form-control" id="accessToken">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="executorScheduler">Executor scheduler</label>
+                            <input type="text" th:name="executorScheduler" class="form-control" id="executorScheduler">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="accessTokenScheduler">AccessToken scheduler</label>
+                            <input type="text" th:name="accessTokenScheduler" class="form-control" id="accessTokenScheduler">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mt-5">
+                            <input type="submit" class="btn btn-primary" value="add account">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
